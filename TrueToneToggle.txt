@@ -1,0 +1,15 @@
+use sys : application "System Events"
+use prefs : application "System Preferences"
+property prefsUI : a reference to process "System Preferences"
+property _W : a reference to window "Displays" of prefsUI
+property _TT : a reference to checkbox "True Tone, Automatically adapt display to make colours appear consistent in different ambient lighting conditions." of group 1 of _W
+property pane : "com.apple.preference.displays"
+
+set TrueTone to null
+reveal pane id (my pane)
+repeat until exists _TT
+end repeat
+click _TT
+tell _TT to if exists then set TrueTone to its value as boolean
+quit prefs
+return TrueTone
